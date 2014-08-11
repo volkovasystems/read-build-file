@@ -55,7 +55,7 @@ var readBuildFile = function readBuildFile( domainDirectory, buildFilePath ){
 		@end-meta-configuration
 	*/
 
-	var domainDirectoryPattern = new RegExp( domainDirectory + "$" );
+	var domainDirectoryPattern = new RegExp( domainDirectory.replace( /[^A-Za-z0-9]/g, "\\$&" ) + "$" );
 	var currentWorkingDirectory = process.cwd( );
 
 	if( typeof buildFilePath == "string" ){
