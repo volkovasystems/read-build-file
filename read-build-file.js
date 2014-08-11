@@ -51,29 +51,29 @@
 		}
 	@end-include
 */
-var readBuildFile = function readBuildFile( domain, buildFilePath ){
+var readBuildFile = function readBuildFile( domainDirectory, buildFilePath ){
 	/*:
 		@meta-configuration:
 			{
-				"domain:required": "string",
+				"domainDirectory:required": "string",
 				"buildFilePath:optional": "string"
 			}
 		@end-meta-configuration
 	*/
 
-	var domainPattern = new RegExp( domain + "$" );
+	var domainDirectoryPattern = new RegExp( domainDirectory + "$" );
 	var currentWorkingDirectory = process.cwd( );
 
 	if( typeof buildFilePath == "string" ){
-		var domainBasedOnBuildFilePath = buildFilePath.split( path.sep ).pop( );
-		if( domainPattern.test( domainBasedOnBuildFilePath ) ){
+		var domainDirectoryBasedOnBuildFilePath = buildFilePath.split( path.sep ).pop( );
+		if( domainDirectoryPattern.test( domainDirectoryBasedOnBuildFilePath ) ){
 			process.chdir( buildFilePath );
 		}
 	}
 
 	for( var levelCount = 0; levelCount < 5; levelCount++ ){
 		process.chdir( process.cwd( ).split( path.sep ).slice( 0, -1 ).join( path.sep ) );
-		if( !domainPattern.test( process.cwd( ) ) ){
+		if( !domainDirectoryPattern.test( process.cwd( ) ) ){
 			break;
 		}
 	}
