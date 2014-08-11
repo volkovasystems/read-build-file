@@ -30,7 +30,8 @@
 			"moduleName": "readBuildFile",
 			"authorName": "Richeve S. Bebedor",
 			"authorEMail": "richeve.bebedor@gmail.com",
-			"repository": "git@github.com:volkovasystems/read-build-file.git"
+			"repository": "git@github.com:volkovasystems/read-build-file.git",
+			"isGlobal": "true"
 		}
 	@end-module-configuration
 
