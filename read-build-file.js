@@ -79,11 +79,19 @@ var readBuildFile = function readBuildFile( domainDirectory, buildFilePath ){
 	}
 
     try{
+    	if( fs.existSync( "./build" ) ){
+    		return fs.readFileSync( "./build", { "encoding": "utf8" } );
 
+    	}else{
+    		var error = new Error( "build file is not existing" );
+    		console.error( error );
+    		throw error;
+    	}
+    	
     }catch( error ){
-
+    	console.error( error );
+    	throw error;
     }
-    fs.readFileSync( "./build" );
 };
 
 var fs = require( "fs" );
