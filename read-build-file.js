@@ -25,18 +25,12 @@
 
 	@module-configuration:
 		{
-			"packageName": "parse-object-command-format",
-			"fileName": "parse-object-command-format.js",
-			"moduleName": "parseObjectCommandFormat",
+			"packageName": "read-build-file",
+			"fileName": "read-build-file.js",
+			"moduleName": "readBuildFile",
 			"authorName": "Richeve S. Bebedor",
 			"authorEMail": "richeve.bebedor@gmail.com",
-			"contributorList": [
-				{
-					"contributorName": "Geoff Diaz",
-					"contributorEMail": "",
-				}
-			],
-			"repository": "git@github.com:volkovasystems/parse-object-command-format.git"
+			"repository": "git@github.com:volkovasystems/read-build-file.git"
 		}
 	@end-module-configuration
 
