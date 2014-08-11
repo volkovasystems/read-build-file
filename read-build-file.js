@@ -84,7 +84,12 @@ var readBuildFile = function readBuildFile( domainDirectory, buildFilePath ){
 		throw error;
 	}
 
+    try{
 
+    }catch( error ){
+
+    }
+    fs.readFileSync( "./build" );
 };
 
 var fs = require( "fs" );
