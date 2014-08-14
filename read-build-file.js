@@ -67,10 +67,11 @@ var readBuildFile = function readBuildFile( domainDirectory, buildFilePath ){
 	}
 
 	for( var levelCount = 0; levelCount < 5; levelCount++ ){
+        if( !domainDirectoryPattern.test( process.cwd( ) ) ){
+            break;
+        }
+
 		process.chdir( process.cwd( ).split( path.sep ).slice( 0, -1 ).join( path.sep ) );
-		if( !domainDirectoryPattern.test( process.cwd( ) ) ){
-			break;
-		}
 	}
 
 	if( levelCount > 5 ){
