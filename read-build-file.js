@@ -83,7 +83,6 @@ var readBuildFile = function readBuildFile( domainDirectory, buildFilePath ){
 	}catch( error ){
 		console.error( error );
 		throw error;
-
 	}
 };
 
