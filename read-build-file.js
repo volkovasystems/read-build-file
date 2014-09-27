@@ -41,6 +41,9 @@
 
 	@include:
 		{
+			"read-file@github.com/volkovasystems": "readFile",
+			"check-directory-exists@github.com/volkovasystems": "checkDirectoryExists",
+			"check-file-exists@github.com/volkovasystems": "checkFileExists"
 			"fs@nodejs": "fs",
 			"path@nodejs": "path"
 		}
@@ -56,49 +59,37 @@ var readBuildFile = function readBuildFile( domainDirectory, buildFilePath ){
 		@end-meta-configuration
 	*/
 
-	var domainDirectoryPattern = new RegExp( domainDirectory.replace( /[^A-Za-z0-9]/g, "\\$&" ) + "$" );
-	var currentWorkingDirectory = process.cwd( );
-
-	if( typeof buildFilePath == "string" ){
-		var domainDirectoryBasedOnBuildFilePath = buildFilePath.split( path.sep ).pop( );
-		if( domainDirectoryPattern.test( domainDirectoryBasedOnBuildFilePath ) ){
-			process.chdir( buildFilePath );
-		}
-	}
-
-	for( var levelCount = 0; levelCount < 5; levelCount++ ){
-        if( !domainDirectoryPattern.test( process.cwd( ) ) ){
-            break;
-        }
-
-		process.chdir( process.cwd( ).split( path.sep ).slice( 0, -1 ).join( path.sep ) );
-	}
-
-	if( levelCount > 5 ){
-		var error = new Error( "reading build file called without a build file" );
+	if( !checkDirectoryExists( domainDirectory ) ){
+		var error = new Error( "fatal:domain directory does not exists" );
 		console.error( error );
 		throw error;
 	}
 
-    try{
-    	if( fs.existSync( "./build" ) ){
-    		return fs.readFileSync( "./build", { "encoding": "utf8" } );
+	buildFilePath = buildFilePath || path.resolve( ".", domainDirectory, "build" );
 
-    	}else{
-    		var error = new Error( "build file is not existing" );
-    		console.error( error );
-    		throw error;
-    	}
-    	
-    }catch( error ){
-    	console.error( error );
-    	throw error;
+	if( buildFilePath ){
+		buildFilePath = path.resolve( ".", domainDirectory, buildFilePath );
+		
+		if( !checkFileExists( buildFilePath ) ){
+			var error = new Error( "fatal:given build file path does not exists" );
+			console.error( error );
+			throw error;
+		}
+	}
 
-    }finally{
-    	process.chdir( currentWorkingDirectory );
-    }
+	try{
+		return readFile( buildFilePath );
+		
+	}catch( error ){
+		console.error( error );
+		throw error;
+
+	}
 };
 
+var readFile = require( "./read-file/read-file.js" );
+var checkDirectoryExists = require( "./check-directory-exists/check-directory-exists.js" );
+var checkFileExists = require( "./check-file-exists/check-file-exists.js" );
 var fs = require( "fs" );
 var path = require( "path" );
 
